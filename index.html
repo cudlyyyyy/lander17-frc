@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScrollEarn - Get Paid to Watch TikTok</title>
+    <title>ScrollEarn - Earn Online</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -42,12 +42,10 @@
             position: relative;
         }
 
-        /* Header */
         header {
             padding: 15px 0 5px;
         }
 
-        /* Hero Section */
         .hero-section {
             text-align: center;
             padding: 20px 0 15px;
@@ -55,14 +53,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo-container {
@@ -75,14 +67,8 @@
         }
 
         @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .app-icon {
@@ -126,14 +112,13 @@
 
         .subheadline {
             font-size: 0.95rem;
-            line-height: 1.4;
+            line-height: 1.5;
             color: var(--text-white);
             margin-bottom: 20px;
             font-weight: 400;
             animation: fadeIn 0.8s ease-out 0.6s backwards;
         }
 
-        /* Age Selection */
         .age-selection {
             display: flex;
             flex-direction: column;
@@ -148,7 +133,7 @@
             border-radius: 16px;
             border: none;
             font-family: 'Outfit', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 900;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -181,12 +166,11 @@
         }
 
         .btn-subtitle {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 500;
             opacity: 0.8;
         }
 
-        /* Success Page */
         .success-section {
             animation: fadeInUp 0.8s ease-out;
         }
@@ -211,17 +195,9 @@
         }
 
         @keyframes successPop {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .success-title {
@@ -232,7 +208,7 @@
 
         .success-subtitle {
             font-size: 0.9rem;
-            line-height: 1.4;
+            line-height: 1.5;
             color: var(--text-gray);
         }
 
@@ -269,31 +245,43 @@
             box-shadow: 0 12px 35px rgba(0, 255, 170, 0.5);
         }
 
-        /* Journey Section */
+        .prequalified-text {
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-gray);
+            margin-bottom: 18px;
+        }
+
         .journey-section {
-            margin: 18px 0 12px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 18px 14px 6px;
+            margin: 0 0 16px;
         }
 
         .journey-title {
-            font-size: 1rem;
+            font-size: 0.75rem;
             font-weight: 800;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            color: var(--text-gray);
         }
 
         .step-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 10px;
+            padding: 14px 0;
+            margin-bottom: 0;
             display: flex;
-            gap: 10px;
+            gap: 14px;
             align-items: flex-start;
-            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
             animation: slideInLeft 0.6s ease-out backwards;
+        }
+
+        .step-card:last-child {
+            border-bottom: none;
         }
 
         .step-card:nth-child(1) { animation-delay: 0.2s; }
@@ -301,96 +289,88 @@
         .step-card:nth-child(3) { animation-delay: 0.5s; }
 
         @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        .step-card.highlighted {
-            background: rgba(0, 255, 170, 0.05);
-            border: 2px solid var(--accent-bright);
-            box-shadow: 0 0 20px rgba(0, 255, 170, 0.15);
-        }
-
-        .step-icon-wrapper {
-            width: 35px;
-            height: 35px;
+        .step-number {
+            width: 32px;
+            height: 32px;
             background: var(--accent-bright);
-            border-radius: 8px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
+            font-weight: 900;
             color: #000;
         }
 
-        .step-card.highlighted .step-icon-wrapper {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 255, 170, 0.7);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 0 0 10px rgba(0, 255, 170, 0);
-            }
-        }
-
         .step-content h3 {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
+            color: var(--text-white);
         }
 
         .step-content p {
             font-size: 0.8rem;
             color: var(--text-gray);
-            line-height: 1.3;
+            line-height: 1.5;
         }
 
-        /* Important Notice */
         .notice-card {
-            background: linear-gradient(135deg, rgba(255, 68, 102, 0.15) 0%, rgba(255, 68, 102, 0.05) 100%);
-            border: 2px solid rgba(255, 68, 102, 0.5);
-            border-radius: 12px;
-            padding: 12px;
-            margin: 12px 0;
+            background: rgba(10, 10, 10, 0.6);
+            border: 2px solid rgba(255, 68, 102, 0.6);
+            border-radius: 14px;
+            padding: 14px;
+            margin: 0 0 12px;
+            position: relative;
             animation: fadeIn 0.8s ease-out 0.8s backwards;
         }
 
         .notice-badge {
-            display: inline-block;
+            position: absolute;
+            top: -14px;
+            right: 12px;
             background: var(--error-red);
             color: white;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 900;
-            padding: 4px 8px;
-            border-radius: 4px;
-            margin-bottom: 6px;
+            padding: 4px 10px;
+            border-radius: 6px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        .notice-text {
-            font-size: 0.8rem;
-            line-height: 1.4;
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .notice-lock {
+            font-size: 1.2rem;
+        }
+
+        .notice-title {
+            font-size: 1rem;
+            font-weight: 800;
             color: var(--text-white);
         }
 
-        .notice-text strong {
-            color: var(--error-red);
+        .notice-text {
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: var(--text-gray);
         }
 
-        /* Trust Badge */
+        .notice-text strong {
+            color: var(--accent-bright);
+        }
+
         .trust-badge {
             text-align: center;
             font-size: 0.75rem;
@@ -404,20 +384,8 @@
             font-weight: 700;
         }
 
-        /* Hidden class */
         .hidden {
             display: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .main-headline {
-                font-size: 2.5rem;
-            }
-
-            .subheadline {
-                font-size: 1rem;
-            }
         }
     </style>
 </head>
@@ -430,18 +398,14 @@
             <div class="hero-section">
                 <div class="logo-container">
                     <div class="app-icon">
-                        <img src="https://images.seeklogo.com/logo-png/37/2/tiktok-app-icon-logo-png_seeklogo-373800.png" alt="TikTok">
-                    </div>
-                    <div class="connector">×</div>
-                    <div class="app-icon">
                         <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/6106a7e4f66385001d52966b/0x0.png" alt="ScrollEarn">
                     </div>
                 </div>
 
                 <h1 class="main-headline">Get Paid to Scroll</h1>
-                
+
                 <p class="subheadline">
-                    Join thousands earning daily by watching TikTok videos and cashing out instantly.
+                    Join thousands earning every day by watching videos online and cashing out instantly.
                 </p>
 
                 <div class="age-selection">
@@ -449,7 +413,7 @@
                         <span>I'm over 21</span>
                         <span class="btn-subtitle">Instant Payouts: PayPal, CashApp, Venmo, Crypto & Wire</span>
                     </button>
-                    
+
                     <button class="age-btn secondary" onclick="showSuccessPage()">
                         <span>I'm under 21</span>
                         <span class="btn-subtitle">Limited Payouts: Wire Transfer Only</span>
@@ -464,60 +428,62 @@
                 <div class="success-header">
                     <div class="logo-container">
                         <div class="app-icon">
-                            <img src="https://images.seeklogo.com/logo-png/37/2/tiktok-app-icon-logo-png_seeklogo-373800.png" alt="TikTok">
-                        </div>
-                        <div class="connector">×</div>
-                        <div class="app-icon">
                             <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/6106a7e4f66385001d52966b/0x0.png" alt="ScrollEarn">
                         </div>
                     </div>
 
                     <div class="success-icon">✓</div>
-                    
+
                     <h2 class="success-title">You're In!</h2>
-                    
+
                     <p class="success-subtitle">
                         Turn your screen time into cash. Earn up to <span class="earning-highlight">$2,000/week.</span>
                     </p>
                 </div>
 
-                <a href="https://giftclick.org/aff_c?offer_id=3531&aff_id=4344&source=SET1" class="cta-button" style="text-decoration: none;">
+                <p class="prequalified-text">Your account is pre-qualified for higher payouts.<br>Download the app to activate full access.</p>
+
+                <a href="https://glctrk.org/aff_c?offer_id=3533&aff_id=4344&source=ttfndeatgoo" class="cta-button" style="text-decoration: none;">
                     <span>🍎</span>
-                    <span>Start Earning</span>
+                    <span>Download Now</span>
                 </a>
 
                 <div class="journey-section">
                     <h3 class="journey-title">Your Earning Journey</h3>
 
                     <div class="step-card">
-                        <div class="step-icon-wrapper">👤</div>
+                        <div class="step-number">1</div>
                         <div class="step-content">
-                            <h3>Create your account</h3>
-                            <p>Get $5 instantly just for signing up</p>
-                        </div>
-                    </div>
-
-                    <div class="step-card highlighted">
-                        <div class="step-icon-wrapper">🎁</div>
-                        <div class="step-content">
-                            <h3>Unlock the TikTok offer</h3>
-                            <p>Complete 1 offer to unlock the TikTok scroll offer</p>
+                            <h3>Download the Freecash App & Create an Account</h3>
+                            <p>Available on iOS & Android — download and sign up in under 30 seconds</p>
                         </div>
                     </div>
 
                     <div class="step-card">
-                        <div class="step-icon-wrapper">💵</div>
+                        <div class="step-number">2</div>
                         <div class="step-content">
-                            <h3>Get paid</h3>
-                            <p>Cash out via PayPal, crypto, bank, or gift cards</p>
+                            <h3>Complete Daily Offers</h3>
+                            <p>Watch Netflix, scroll social media, test apps & games, or take surveys!</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Cash Out Your Earnings</h3>
+                            <p>Instant Payouts: PayPal, CashApp, Venmo, Crypto & Wire</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="notice-card">
-                    <div class="notice-badge">Important</div>
+                    <div class="notice-badge">⚠️ Important</div>
+                    <div class="notice-header">
+                        <span class="notice-lock">🔒</span>
+                        <span class="notice-title">Activation Required</span>
+                    </div>
                     <p class="notice-text">
-                        <strong>Activation Required:</strong> New users must complete 2 quick offers to unlock full access and start earning with TikTok videos.
+                        New users: Complete <strong>2 quick offers</strong> to unlock full access and start earning in minutes.
                     </p>
                 </div>
 
