@@ -409,12 +409,12 @@
                 </p>
 
                 <div class="age-selection">
-                    <button class="age-btn primary" onclick="showSuccessPage()">
+                    <button class="age-btn primary" onclick="track('Over 21')">
                         <span>I'm over 21</span>
                         <span class="btn-subtitle">Instant Payouts: PayPal, CashApp, Venmo, Crypto & Wire</span>
                     </button>
 
-                    <button class="age-btn secondary" onclick="showSuccessPage()">
+                    <button class="age-btn secondary" onclick="track('Under 21')">
                         <span>I'm under 21</span>
                         <span class="btn-subtitle">Limited Payouts: Wire Transfer Only</span>
                     </button>
@@ -443,7 +443,7 @@
 
                 <p class="prequalified-text">Your account is pre-qualified for higher payouts.<br>Download the app to activate full access.</p>
 
-                <a href="https://giftclick.org/aff_c?offer_id=3531&aff_id=4344&source=NLT2" class="cta-button" style="text-decoration: none;">
+                <a href="https://glctrk.org/aff_c?offer_id=3533&aff_id=4344&source=ttfndeatgoo" class="cta-button" style="text-decoration: none;">
                     <span>🍎</span>
                     <span>Download Now</span>
                 </a>
@@ -495,6 +495,31 @@
     </div>
 
     <script>
+        // ─────────────────────────────────────────
+        // CHANGE THIS each time you reuse the page
+        const CAMPAIGN_ID = 'campaign-001';
+        // ─────────────────────────────────────────
+
+        // Paste your Google Apps Script Web App URL here
+        const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyGdk1S0AK_7qC4mpXQsmxpKIAp1CWzFj37jX7ME9thawZ8LxKPnPF1Wg1R1lV4eUieNA/exec';
+
+        const LANGUAGE = 'English';
+
+        function track(selection) {
+            fetch(SHEET_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    campaign: CAMPAIGN_ID,
+                    selection: selection,
+                    language: LANGUAGE
+                })
+            }).catch(() => {}); // silently fail if offline
+            showSuccessPage();
+        }
+
         function showSuccessPage() {
             document.getElementById('landingPage').classList.add('hidden');
             document.getElementById('successPage').classList.remove('hidden');
