@@ -533,6 +533,20 @@
             }).catch(() => {});
         }
 
+        function trackClick() {
+            fetch(SHEET_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    campaign: CAMPAIGN_ID,
+                    selection: 'Button Click',
+                    language: LANGUAGE
+                })
+            }).catch(() => {});
+        }
+
         function showSuccessPage() {
             document.getElementById('landingPage').classList.add('hidden');
             document.getElementById('successPage').classList.remove('hidden');
