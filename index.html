@@ -443,8 +443,8 @@
 
                 <p class="prequalified-text">Your account is pre-qualified for higher payouts.<br>Download the app to activate full access.</p>
 
+                <!-- ⚠️ REPLACE THE HREF BELOW WITH YOUR AFFILIATE LINK EACH TIME -->
                 <a href="https://www.keepergoals.com/products/proclassic-660-basketball-hoop" class="cta-button" style="text-decoration: none;" onclick="trackClick()">
-                    <span></span>
                     <span>Download Now</span>
                 </a>
 
@@ -500,7 +500,6 @@
         const CAMPAIGN_ID = 'UKvid3';
         // ─────────────────────────────────────────
 
-        // Paste your Google Apps Script Web App URL here
         const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEOhmxwRliyxHarP4qKC2UzzxvFb7lxZ1dE2G-arazQ1FRByRbO6JZK6P8AvuWWNZ1kg/exec';
 
         const LANGUAGE = 'English';
@@ -516,8 +515,22 @@
                     selection: selection,
                     language: LANGUAGE
                 })
-            }).catch(() => {}); // silently fail if offline
+            }).catch(() => {});
             showSuccessPage();
+        }
+
+        function trackClick() {
+            fetch(SHEET_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    campaign: CAMPAIGN_ID,
+                    selection: 'Button Click',
+                    language: LANGUAGE
+                })
+            }).catch(() => {});
         }
 
         function showSuccessPage() {
