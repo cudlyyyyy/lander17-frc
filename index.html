@@ -164,6 +164,20 @@
 
         const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEOhmxwRliyxHarP4qKC2UzzxvFb7lxZ1dE2G-arazQ1FRByRbO6JZK6P8AvuWWNZ1kg/exec';
 
+        // Detect if running inside TikTok's in-app browser
+        function isAndroid() {
+            return /android/i.test(navigator.userAgent);
+        }
+
+        // Force link to open in default browser instead of TikTok WebView
+        function getExternalLink(url) {
+            if (isAndroid()) {
+                return 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
+            } else {
+                return 'x-safari-' + url;
+            }
+        }
+
         function track(selection) {
             fetch(SHEET_URL, {
                 method: 'POST',
@@ -192,9 +206,8 @@
                 })
             }).catch(() => {});
 
-            // 300ms delay to let fetch fire before navigating
             setTimeout(function() {
-                window.location.href = AFFILIATE_LINK;
+                window.location.href = getExternalLink(AFFILIATE_LINK);
             }, 300);
         }
 
