@@ -165,17 +165,24 @@
         const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEOhmxwRliyxHarP4qKC2UzzxvFb7lxZ1dE2G-arazQ1FRByRbO6JZK6P8AvuWWNZ1kg/exec';
 
         // Detect if running inside TikTok's in-app browser
+        function isTikTokBrowser() {
+            return /musical_ly|tiktok/i.test(navigator.userAgent);
+        }
+
         function isAndroid() {
             return /android/i.test(navigator.userAgent);
         }
 
-        // Force link to open in default browser instead of TikTok WebView
+        // Force link to open in default browser only when inside TikTok WebView
         function getExternalLink(url) {
-            if (isAndroid()) {
-                return 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
-            } else {
-                return 'x-safari-' + url;
+            if (isTikTokBrowser()) {
+                if (isAndroid()) {
+                    return 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
+                } else {
+                    return 'x-safari-' + url;
+                }
             }
+            return url;
         }
 
         function track(selection) {
