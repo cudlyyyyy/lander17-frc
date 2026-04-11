@@ -497,9 +497,11 @@
         const mc = parseMcAttr();
 
         return (
+            getUrlParameter('camp') ||
             getUrlParameter('sub2') ||
             getUrlParameter('s2') ||
             getUrlParameter('t1') ||
+            mc.camp ||
             mc.sub2 ||
             mc.s2 ||
             mc.t1 ||
