@@ -464,54 +464,24 @@
     </div>
 
 <script>
-    const DEFAULT_CAMPAIGN_ID = 'fallback';
+    // ─────────────────────────────────────────
+    const DEFAULT_CAMPAIGN_ID = 'CAslideT2';
     const LANGUAGE = 'English';
-    const BASE_AFFILIATE_LINK = 'https://raintrcks.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidSI6IjY5YTEwOTZkYTA5OGFmODc1MWVkNzIyNiIsInRzIjoxNzc1ODU4MDgwODQ4fQ';
+    const BASE_AFFILIATE_LINK = 'https://raintrcks.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidSI6IjY5YTEwOTZkYTA5OGFmODc1MWVkNzIyNiIsInRzIjoxNzc1OTE2NTQxMzEwLCJzIjoibmQtZnJlZWNhc2gtY3BpLXVzLWFuZHJvaWQifQ';
     const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEOhmxwRliyxHarP4qKC2UzzxvFb7lxZ1dE2G-arazQ1FRByRbO6JZK6P8AvuWWNZ1kg/exec';
+    // ─────────────────────────────────────────
 
     function getUrlParameter(name) {
         const params = new URLSearchParams(window.location.search);
         return params.get(name);
     }
 
-    function parseMcAttr() {
-        const raw = getUrlParameter('mc_attr');
-        if (!raw) return {};
-
-        const decoded = decodeURIComponent(raw);
-        const parts = decoded.split('..');
-        const out = {};
-
-        for (const part of parts) {
-            const idx = part.indexOf('=');
-            if (idx === -1) continue;
-            const key = part.slice(0, idx);
-            const value = part.slice(idx + 1);
-            out[key] = value;
-        }
-
-        return out;
-    }
-
     function getCampaignId() {
-        const mc = parseMcAttr();
-
-        return (
-            getUrlParameter('camp') ||
-            getUrlParameter('sub2') ||
-            getUrlParameter('s2') ||
-            getUrlParameter('t1') ||
-            mc.camp ||
-            mc.sub2 ||
-            mc.s2 ||
-            mc.t1 ||
-            DEFAULT_CAMPAIGN_ID
-        );
+        return getUrlParameter('sub2') || getUrlParameter('s2') || DEFAULT_CAMPAIGN_ID;
     }
 
     function getMaxConvClickId() {
-        const mc = parseMcAttr();
-        return getUrlParameter('mc_click_id') || getUrlParameter('ttclid') || mc.e || '';
+        return getUrlParameter('mc_click_id') || getUrlParameter('ttclid') || '';
     }
 
     function isTikTokBrowser() {
@@ -533,6 +503,7 @@
         return url;
     }
 
+    // ✅ FIXED FUNCTION
     function logEvent(payload) {
         const body = {
             timestamp: new Date().toISOString(),
