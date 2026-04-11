@@ -504,7 +504,7 @@
             return url;
         }
         
-        function logEvent(payload) {
+       function logEvent(payload) {
     const body = {
         timestamp: new Date().toISOString(),
         campaign: getCampaignId(),
@@ -519,15 +519,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
     }).catch(() => {});
-        }
-        
-            fetch(SHEET_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            }).catch(() => {});
-        }
+}
 
         function track(selection) {
             logEvent({
