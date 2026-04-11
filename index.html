@@ -505,21 +505,21 @@
         }
 
         function logEvent(payload) {
-            const body = {
-                timestamp: new Date().toISOString(),
-                campaign: getCampaignId(),
-                language: LANGUAGE,
-                page_url: window.location.href,
-                user_agent: navigator.userAgent,
-                mc_click_id: getMaxConvClickId(),
-                ...payload
-            };
+    const body = {
+        timestamp: new Date().toISOString(),
+        campaign: getCampaignId(),
+        language: LANGUAGE,
+        selection: payload.selection || payload.type || '',
+        ...payload
+    };
 
-            if (navigator.sendBeacon) {
-                const blob = new Blob([JSON.stringify(body)], { type: 'application/json' });
-                navigator.sendBeacon(SHEET_URL, blob);
-                return;
-            }
+    fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    }).catch(() => {});
+}
 
             fetch(SHEET_URL, {
                 method: 'POST',
