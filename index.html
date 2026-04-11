@@ -381,7 +381,6 @@
     <div class="container">
         <header></header>
 
-        <!-- Landing Page -->
         <div id="landingPage">
             <div class="hero-section">
                 <div class="logo-container">
@@ -404,7 +403,6 @@
             </div>
         </div>
 
-        <!-- Success Page -->
         <div id="successPage" class="hidden">
             <div class="success-section">
                 <div class="success-header">
@@ -464,12 +462,10 @@
     </div>
 
 <script>
-    // ─────────────────────────────────────────
     const DEFAULT_CAMPAIGN_ID = 'UKslideT9';
     const LANGUAGE = 'English';
     const BASE_AFFILIATE_LINK = 'https://raintrcks.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidSI6IjY5YTEwOTZkYTA5OGFmODc1MWVkNzIyNiIsInRzIjoxNzc1OTE2NTQxMzEwLCJzIjoibmQtZnJlZWNhc2gtY3BpLXVzLWFuZHJvaWQifQ';
     const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEOhmxwRliyxHarP4qKC2UzzxvFb7lxZ1dE2G-arazQ1FRByRbO6JZK6P8AvuWWNZ1kg/exec';
-    // ─────────────────────────────────────────
 
     function getUrlParameter(name) {
         const params = new URLSearchParams(window.location.search);
@@ -477,11 +473,56 @@
     }
 
     function getCampaignId() {
-        return getUrlParameter('sub2') || getUrlParameter('s2') || DEFAULT_CAMPAIGN_ID;
+        return (
+            getUrlParameter('sub2') ||
+            getUrlParameter('s2') ||
+            getUrlParameter('mc_campaign_id') ||
+            DEFAULT_CAMPAIGN_ID
+        );
+    }
+
+    function parseMcAttr() {
+        const raw = getUrlParameter('mc_attr');
+        if (!raw) return {};
+
+        try {
+            const decoded = decodeURIComponent(raw);
+            const result = {};
+
+            decoded.split('..').forEach(part => {
+                const eqIndex = part.indexOf('=');
+                if (eqIndex > -1) {
+                    const key = part.slice(0, eqIndex).trim();
+                    const value = part.slice(eqIndex + 1).trim();
+                    result[key] = value;
+                }
+            });
+
+            return result;
+        } catch (err) {
+            return {};
+        }
     }
 
     function getMaxConvClickId() {
-        return getUrlParameter('mc_click_id') || getUrlParameter('ttclid') || '';
+        const mcAttr = parseMcAttr();
+
+        return (
+            getUrlParameter('mc_click_id') ||
+            getUrlParameter('clid') ||
+            mcAttr.m ||
+            ''
+        );
+    }
+
+    function getTikTokClickId() {
+        const mcAttr = parseMcAttr();
+
+        return (
+            getUrlParameter('ttclid') ||
+            mcAttr.e ||
+            ''
+        );
     }
 
     function isTikTokBrowser() {
@@ -503,12 +544,13 @@
         return url;
     }
 
-    // ✅ FIXED FUNCTION
     function logEvent(payload) {
         const body = {
             timestamp: new Date().toISOString(),
             campaign: getCampaignId(),
             language: LANGUAGE,
+            mc_click_id: getMaxConvClickId(),
+            ttclid: getTikTokClickId(),
             selection: payload.selection || payload.type || '',
             ...payload
         };
@@ -533,14 +575,20 @@
     function buildAffiliateUrl() {
         const campaignId = getCampaignId();
         const mcClickId = getMaxConvClickId();
-
+        const ttclid = getTikTokClickId();
         const url = new URL(BASE_AFFILIATE_LINK);
 
         url.searchParams.set('s2', campaignId);
         url.searchParams.set('sub2', campaignId);
 
         if (mcClickId) {
+            url.searchParams.set('sub1', mcClickId);
+            url.searchParams.set('click_id', mcClickId);
             url.searchParams.set('adv1', mcClickId);
+        }
+
+        if (ttclid) {
+            url.searchParams.set('ttclid', ttclid);
         }
 
         return url.toString();
@@ -565,6 +613,11 @@
         document.getElementById('successPage').classList.remove('hidden');
         window.scrollTo(0, 0);
     }
+
+    console.log('Campaign ID:', getCampaignId());
+    console.log('MaxConv Click ID:', getMaxConvClickId());
+    console.log('TikTok Click ID:', getTikTokClickId());
+    console.log('Decoded mc_attr:', parseMcAttr());
 </script>
 </body>
 </html>
