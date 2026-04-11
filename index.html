@@ -463,110 +463,108 @@
         </div>
     </div>
 
-    <script>
-        // ─────────────────────────────────────────
-        // CHANGE THESE each time you reuse the page
-        const DEFAULT_CAMPAIGN_ID = 'UKslideT8';
-        const LANGUAGE = 'English';
-        const BASE_AFFILIATE_LINK = 'https://raintrcks.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidSI6IjY5YTEwOTZkYTA5OGFmODc1MWVkNzIyNiIsInRzIjoxNzc1ODU4MDgwODQ4fQ?s2=UKslideT8';
-        const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEOhmxwRliyxHarP4qKC2UzzxvFb7lxZ1dE2G-arazQ1FRByRbO6JZK6P8AvuWWNZ1kg/exec';
-        // ─────────────────────────────────────────
+<script>
+    // ─────────────────────────────────────────
+    const DEFAULT_CAMPAIGN_ID = 'UKslideT8';
+    const LANGUAGE = 'English';
+    const BASE_AFFILIATE_LINK = 'https://raintrcks.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidSI6IjY5YTEwOTZkYTA5OGFmODc1MWVkNzIyNiIsInRzIjoxNzc1ODU4MDgwODQ4fQ?s2=UKslideT8';
+    const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEOhmxwRliyxHarP4qKC2UzzxvFb7lxZ1dE2G-arazQ1FRByRbO6JZK6P8AvuWWNZ1kg/exec';
+    // ─────────────────────────────────────────
 
-        function getUrlParameter(name) {
-            const params = new URLSearchParams(window.location.search);
-            return params.get(name);
-        }
+    function getUrlParameter(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name);
+    }
 
-        function getCampaignId() {
-            return getUrlParameter('sub2') || getUrlParameter('s2') || DEFAULT_CAMPAIGN_ID;
-        }
+    function getCampaignId() {
+        return getUrlParameter('sub2') || getUrlParameter('s2') || DEFAULT_CAMPAIGN_ID;
+    }
 
-        function getMaxConvClickId() {
-            return getUrlParameter('mc_click_id') || getUrlParameter('ttclid') || '';
-        }
+    function getMaxConvClickId() {
+        return getUrlParameter('mc_click_id') || getUrlParameter('ttclid') || '';
+    }
 
-        function isTikTokBrowser() {
-            return /musical_ly|tiktok/i.test(navigator.userAgent);
-        }
+    function isTikTokBrowser() {
+        return /musical_ly|tiktok/i.test(navigator.userAgent);
+    }
 
-        function isAndroid() {
-            return /android/i.test(navigator.userAgent);
-        }
+    function isAndroid() {
+        return /android/i.test(navigator.userAgent);
+    }
 
-        function getExternalLink(url) {
-            if (isTikTokBrowser()) {
-                if (isAndroid()) {
-                    return 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
-                } else {
-                    return 'x-safari-' + url;
-                }
+    function getExternalLink(url) {
+        if (isTikTokBrowser()) {
+            if (isAndroid()) {
+                return 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
+            } else {
+                return 'x-safari-' + url;
             }
-            return url;
         }
-        
-       function logEvent(payload) {
-    const body = {
-        timestamp: new Date().toISOString(),
-        campaign: getCampaignId(),
-        language: LANGUAGE,
-        selection: payload.selection || payload.type || '',
-        ...payload
-    };
+        return url;
+    }
 
-    fetch(SHEET_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-    }).catch(() => {});
-}
+    // ✅ FIXED FUNCTION
+    function logEvent(payload) {
+        const body = {
+            timestamp: new Date().toISOString(),
+            campaign: getCampaignId(),
+            language: LANGUAGE,
+            selection: payload.selection || payload.type || '',
+            ...payload
+        };
 
-        function track(selection) {
-            logEvent({
-                type: 'selection',
-                selection: selection
-            });
+        fetch(SHEET_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        }).catch(() => {});
+    }
 
-            showSuccessPage();
-        }
+    function track(selection) {
+        logEvent({
+            type: 'selection',
+            selection: selection
+        });
 
-        function buildAffiliateUrl() {
-            const campaignId = getCampaignId();
-            const mcClickId = getMaxConvClickId();
+        showSuccessPage();
+    }
 
-            const url = new URL(BASE_AFFILIATE_LINK);
+    function buildAffiliateUrl() {
+        const campaignId = getCampaignId();
+        const mcClickId = getMaxConvClickId();
 
-            // keep campaign value available to the network
-            url.searchParams.set('s2', campaignId);
-            url.searchParams.set('sub2', campaignId);
+        const url = new URL(BASE_AFFILIATE_LINK);
 
-            // THIS is the key MaxConv -> network bridge
-            if (mcClickId) {
-                url.searchParams.set('adv1', mcClickId);
-            }
+        url.searchParams.set('s2', campaignId);
+        url.searchParams.set('sub2', campaignId);
 
-            return url.toString();
+        if (mcClickId) {
+            url.searchParams.set('adv1', mcClickId);
         }
 
-        function handleDownloadClick() {
-            const finalUrl = buildAffiliateUrl();
+        return url.toString();
+    }
 
-            logEvent({
-                type: 'click',
-                selection: 'Button Click',
-                outbound_url: finalUrl
-            });
+    function handleDownloadClick() {
+        const finalUrl = buildAffiliateUrl();
 
-            setTimeout(function () {
-                window.location.href = getExternalLink(finalUrl);
-            }, 150);
-        }
+        logEvent({
+            type: 'click',
+            selection: 'Button Click',
+            outbound_url: finalUrl
+        });
 
-        function showSuccessPage() {
-            document.getElementById('landingPage').classList.add('hidden');
-            document.getElementById('successPage').classList.remove('hidden');
-            window.scrollTo(0, 0);
-        }
-    </script>
+        setTimeout(function () {
+            window.location.href = getExternalLink(finalUrl);
+        }, 150);
+    }
+
+    function showSuccessPage() {
+        document.getElementById('landingPage').classList.add('hidden');
+        document.getElementById('successPage').classList.remove('hidden');
+        window.scrollTo(0, 0);
+    }
+</script>
 </body>
 </html>
