@@ -582,12 +582,10 @@
         url.searchParams.set('sub2', campaignId);
 
         if (mcClickId) {
-            url.searchParams.set('sub1', mcClickId);
-            url.searchParams.set('click_id', mcClickId);
             url.searchParams.set('adv1', mcClickId);
         }
 
-        if (ttclid) {
+        if (ttclid && !ttclid.startsWith('__')) {
             url.searchParams.set('ttclid', ttclid);
         }
 
