@@ -101,9 +101,34 @@
             font-size: 0.95rem;
             line-height: 1.5;
             color: var(--text-white);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             font-weight: 400;
             animation: fadeIn 0.8s ease-out 0.6s backwards;
+        }
+
+        .bonus-banner {
+            background: rgba(0, 255, 170, 0.08);
+            border: 2px solid var(--accent-bright);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 16px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out 0.7s backwards;
+        }
+
+        .bonus-amount {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--accent-bright);
+            margin-bottom: 2px;
+        }
+
+        .bonus-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-gray);
         }
 
         .age-selection {
@@ -220,7 +245,7 @@
             letter-spacing: 0.03em;
             box-shadow: 0 8px 25px rgba(0,255,170,0.3);
             transition: all 0.3s ease;
-            margin: 18px 0;
+            margin: 18px 0 6px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -233,12 +258,12 @@
             box-shadow: 0 12px 35px rgba(0,255,170,0.5);
         }
 
-        .prequalified-text {
+        .typical-earnings {
             text-align: center;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.78rem;
             color: var(--text-gray);
-            margin-bottom: 18px;
+            font-style: italic;
+            margin-bottom: 16px;
         }
 
         .journey-section {
@@ -339,9 +364,7 @@
             margin-bottom: 8px;
         }
 
-        .notice-lock {
-            font-size: 1.2rem;
-        }
+        .notice-lock { font-size: 1.2rem; }
 
         .notice-title {
             font-size: 1rem;
@@ -355,9 +378,7 @@
             color: var(--text-gray);
         }
 
-        .notice-text strong {
-            color: var(--accent-bright);
-        }
+        .notice-text strong { color: var(--accent-bright); }
 
         .trust-badge {
             text-align: center;
@@ -372,15 +393,14 @@
             font-weight: 700;
         }
 
-        .hidden {
-            display: none;
-        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
     <div class="container">
         <header></header>
 
+        <!-- Landing Page -->
         <div id="landingPage">
             <div class="hero-section">
                 <div class="logo-container">
@@ -390,6 +410,12 @@
                 </div>
                 <h1 class="main-headline">Get Paid to Scroll</h1>
                 <p class="subheadline">Join thousands earning every day by watching videos online and cashing out instantly.</p>
+
+                <div class="bonus-banner">
+                    <div class="bonus-amount">🎁 $20 Sign-Up Bonus</div>
+                    <div class="bonus-label">Free when you download today</div>
+                </div>
+
                 <div class="age-selection">
                     <button class="age-btn primary" onclick="track('Over 21')">
                         <span>I'm over 21</span>
@@ -403,6 +429,7 @@
             </div>
         </div>
 
+        <!-- Success Page -->
         <div id="successPage" class="hidden">
             <div class="success-section">
                 <div class="success-header">
@@ -413,29 +440,28 @@
                     </div>
                     <div class="success-icon">✓</div>
                     <h2 class="success-title">You're In!</h2>
-                    <p class="success-subtitle">Turn your screen time into cash. Earn up to <span class="earning-highlight">$2,000/week.</span></p>
+                    <p class="success-subtitle">Your account is pre-qualified for higher payouts.<br>Download the app to activate your <span class="earning-highlight">$20 bonus</span> and full access.</p>
                 </div>
 
-                <p class="prequalified-text">Your account is pre-qualified for higher payouts.<br>Download the app to activate full access.</p>
-
                 <a href="#" class="cta-button" onclick="handleDownloadClick(); return false;">
-                    <span>Download Now</span>
+                    <span>Download Now — Claim $20 Bonus</span>
                 </a>
+                <p class="typical-earnings">Typical users make $50 after completing a few deals</p>
 
                 <div class="journey-section">
                     <h3 class="journey-title">Your Earning Journey</h3>
                     <div class="step-card">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <h3>Download the Freecash App & Create an Account</h3>
-                            <p>Available on iOS & Android — download and sign up in under 30 seconds</p>
+                            <h3>Download & Get Your $20 Bonus</h3>
+                            <p>Available on iOS & Android — Takes less than 60 seconds</p>
                         </div>
                     </div>
                     <div class="step-card">
                         <div class="step-number">2</div>
                         <div class="step-content">
                             <h3>Complete Daily Offers</h3>
-                            <p>Watch Netflix, scroll social media, test apps & games, or take surveys!</p>
+                            <p>Watch Netflix, scroll TikTok, while testing apps & games, or taking surveys!</p>
                         </div>
                     </div>
                     <div class="step-card">
@@ -462,7 +488,7 @@
     </div>
 
 <script>
-    const DEFAULT_CAMPAIGN_ID = 'USAvidT15';
+    const DEFAULT_CAMPAIGN_ID = 'USAvidT18';
     const LANGUAGE = 'English';
     const BASE_AFFILIATE_LINK = 'https://raintrcks.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidSI6IjY5YTEwOTZkYTA5OGFmODc1MWVkNzIyNiIsInRzIjoxNzc1OTE2NTQxMzEwLCJzIjoibmQtZnJlZWNhc2gtY3BpLXVzLWFuZHJvaWQifQ';
     const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEOhmxwRliyxHarP4qKC2UzzxvFb7lxZ1dE2G-arazQ1FRByRbO6JZK6P8AvuWWNZ1kg/exec';
@@ -484,11 +510,9 @@
     function parseMcAttr() {
         const raw = getUrlParameter('mc_attr');
         if (!raw) return {};
-
         try {
             const decoded = decodeURIComponent(raw);
             const result = {};
-
             decoded.split('..').forEach(part => {
                 const eqIndex = part.indexOf('=');
                 if (eqIndex > -1) {
@@ -497,7 +521,6 @@
                     result[key] = value;
                 }
             });
-
             return result;
         } catch (err) {
             return {};
@@ -506,7 +529,6 @@
 
     function getMaxConvClickId() {
         const mcAttr = parseMcAttr();
-
         return (
             getUrlParameter('mc_click_id') ||
             getUrlParameter('clid') ||
@@ -517,7 +539,6 @@
 
     function getTikTokClickId() {
         const mcAttr = parseMcAttr();
-
         return (
             getUrlParameter('ttclid') ||
             mcAttr.e ||
@@ -564,11 +585,7 @@
     }
 
     function track(selection) {
-        logEvent({
-            type: 'selection',
-            selection: selection
-        });
-
+        logEvent({ type: 'selection', selection: selection });
         showSuccessPage();
     }
 
@@ -581,26 +598,15 @@
         url.searchParams.set('s2', campaignId);
         url.searchParams.set('sub2', campaignId);
 
-        if (mcClickId) {
-            url.searchParams.set('adv1', mcClickId);
-        }
-
-        if (ttclid && !ttclid.startsWith('__')) {
-            url.searchParams.set('ttclid', ttclid);
-        }
+        if (mcClickId) url.searchParams.set('adv1', mcClickId);
+        if (ttclid && !ttclid.startsWith('__')) url.searchParams.set('ttclid', ttclid);
 
         return url.toString();
     }
 
     function handleDownloadClick() {
         const finalUrl = buildAffiliateUrl();
-
-        logEvent({
-            type: 'click',
-            selection: 'Button Click',
-            outbound_url: finalUrl
-        });
-
+        logEvent({ type: 'click', selection: 'Button Click', outbound_url: finalUrl });
         setTimeout(function () {
             window.location.href = getExternalLink(finalUrl);
         }, 150);
@@ -615,7 +621,6 @@
     console.log('Campaign ID:', getCampaignId());
     console.log('MaxConv Click ID:', getMaxConvClickId());
     console.log('TikTok Click ID:', getTikTokClickId());
-    console.log('Decoded mc_attr:', parseMcAttr());
 </script>
 </body>
 </html>
