@@ -400,7 +400,6 @@
     <div class="container">
         <header></header>
 
-        <!-- Landing Page -->
         <div id="landingPage">
             <div class="hero-section">
                 <div class="logo-container">
@@ -413,7 +412,7 @@
 
                 <div class="bonus-banner">
                     <div class="bonus-amount">🎁 $20 Sign-Up Bonus</div>
-                    <div class="bonus-label">Free when you download today</div>
+                    <div class="bonus-label">Free when you create an account</div>
                 </div>
 
                 <div class="age-selection">
@@ -429,7 +428,6 @@
             </div>
         </div>
 
-        <!-- Success Page -->
         <div id="successPage" class="hidden">
             <div class="success-section">
                 <div class="success-header">
@@ -440,11 +438,11 @@
                     </div>
                     <div class="success-icon">✓</div>
                     <h2 class="success-title">You're In!</h2>
-                    <p class="success-subtitle">Your account is pre-qualified for higher payouts.<br>Download the app to activate your <span class="earning-highlight">$20 bonus</span> and full access.</p>
+                    <p class="success-subtitle">Your account is pre-qualified for higher payouts.<br>Create an account to activate your <span class="earning-highlight">$20 bonus</span> and full access.</p>
                 </div>
 
                 <a href="#" class="cta-button" onclick="handleDownloadClick(); return false;">
-                    <span>Download Now — Claim $20 Bonus</span>
+                    <span>Start Now — Claim $20 Bonus</span>
                 </a>
                 <p class="typical-earnings">Typical users make $50 after completing a few deals</p>
 
@@ -453,15 +451,15 @@
                     <div class="step-card">
                         <div class="step-number">1</div>
                         <div class="step-content">
-                            <h3>Download & Get Your $20 Bonus</h3>
-                            <p>Available on iOS & Android — Takes less than 60 seconds</p>
+                            <h3>Create your account</h3>
+                            <p>Get $20 just for signing up</p>
                         </div>
                     </div>
                     <div class="step-card">
                         <div class="step-number">2</div>
                         <div class="step-content">
-                            <h3>Complete Daily Offers</h3>
-                            <p>Watch Netflix, scroll TikTok, while testing apps & games, or taking surveys!</p>
+                            <h3>Start at least 2 offers to activate scrolling</h3>
+                            <p>A quick game or survey activates scroll earning & other high-paying offers!</p>
                         </div>
                     </div>
                     <div class="step-card">
@@ -488,9 +486,9 @@
     </div>
 
 <script>
-    const DEFAULT_CAMPAIGN_ID = 'USAvidT18';
+    const DEFAULT_CAMPAIGN_ID = 'USAvidT21';
     const LANGUAGE = 'English';
-    const BASE_AFFILIATE_LINK = 'https://raintrcks.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidSI6IjY5YTEwOTZkYTA5OGFmODc1MWVkNzIyNiIsInRzIjoxNzc1OTE2NTQxMzEwLCJzIjoibmQtZnJlZWNhc2gtY3BpLXVzLWFuZHJvaWQifQ';
+    const BASE_AFFILIATE_LINK = 'https://raintrcks.com/r/eyJ0IjoiZnJlZWNhc2gtY3BpIiwidGlkIjoiM2Q4YjkxNTZiZWY4ZWUzODE5NDkiLCJ0cyI6MTc3NjUyMjM4NDAwMX0';
     const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwEOhmxwRliyxHarP4qKC2UzzxvFb7lxZ1dE2G-arazQ1FRByRbO6JZK6P8AvuWWNZ1kg/exec';
 
     function getUrlParameter(name) {
@@ -510,9 +508,11 @@
     function parseMcAttr() {
         const raw = getUrlParameter('mc_attr');
         if (!raw) return {};
+
         try {
             const decoded = decodeURIComponent(raw);
             const result = {};
+
             decoded.split('..').forEach(part => {
                 const eqIndex = part.indexOf('=');
                 if (eqIndex > -1) {
@@ -521,6 +521,7 @@
                     result[key] = value;
                 }
             });
+
             return result;
         } catch (err) {
             return {};
@@ -595,18 +596,31 @@
         const ttclid = getTikTokClickId();
         const url = new URL(BASE_AFFILIATE_LINK);
 
+        // Campaign tracking
         url.searchParams.set('s2', campaignId);
         url.searchParams.set('sub2', campaignId);
 
-        if (mcClickId) url.searchParams.set('adv1', mcClickId);
-        if (ttclid && !ttclid.startsWith('__')) url.searchParams.set('ttclid', ttclid);
+        // MaxConv click ID for postback matching
+        if (mcClickId) {
+            url.searchParams.set('sub1', mcClickId);
+        }
+
+        // Optional TikTok click ID passthrough
+        if (ttclid && !ttclid.startsWith('__')) {
+            url.searchParams.set('ttclid', ttclid);
+        }
 
         return url.toString();
     }
 
     function handleDownloadClick() {
         const finalUrl = buildAffiliateUrl();
-        logEvent({ type: 'click', selection: 'Button Click', outbound_url: finalUrl });
+        logEvent({
+            type: 'click',
+            selection: 'Button Click',
+            outbound_url: finalUrl
+        });
+
         setTimeout(function () {
             window.location.href = getExternalLink(finalUrl);
         }, 150);
@@ -621,6 +635,7 @@
     console.log('Campaign ID:', getCampaignId());
     console.log('MaxConv Click ID:', getMaxConvClickId());
     console.log('TikTok Click ID:', getTikTokClickId());
+    console.log('Final Affiliate URL:', buildAffiliateUrl());
 </script>
 </body>
 </html>
